@@ -2,7 +2,11 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
-const errorHandler = require("./middleware/errorHandler");
+const errorHandler = require("./middlewares/errorHandler");
+const userRoutes = require("./routes/userRoutes");
+
+app.use(express.json());
+app.use("/api/auth", userRoutes);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
