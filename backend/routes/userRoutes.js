@@ -1,4 +1,3 @@
-// routes/userRouter.js
 const express = require("express");
 const {
   registerUser,

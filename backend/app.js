@@ -3,9 +3,10 @@ const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
 const errorHandler = require("./middlewares/errorHandler");
-const userRoutes = require("./routes/userRoutes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const userRoutes = require("./routes/userRoutes");
+const doctorRoutes = require("./routes/doctorRoutes");
 
 app.use(
   cors({
@@ -17,6 +18,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", userRoutes);
+app.use("/api/doctors", doctorRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
