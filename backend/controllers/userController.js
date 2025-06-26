@@ -37,9 +37,18 @@ exports.loginUser = catchAsync(async (req, res) => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    maxAge: 15 * 60 * 1000,
+  });
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
   res.status(200).json({
-    accessToken,
-    refreshToken,
+    message: "Login Successful",
     user: {
       id: user._id,
       name: user.name,
@@ -64,7 +73,12 @@ exports.refreshToken = catchAsync(async (req, res) => {
     if (!user) return res.status(401).json({ message: "User not found" });
 
     const newAccessToken = generateAccessToken(user);
-    res.status(200).json({ accessToken: newAccessToken });
+
+    res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+      maxAge: 15 * 60 * 1000,
+    });
+    res.status(200).json({ message: "New access token generated" });
   } catch (err) {
     res.status(403).json({ message: "Invalid or expired refresh token" });
   }

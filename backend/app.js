@@ -8,7 +8,7 @@ const userRoutes = require("./routes/userRoutes");
 app.use(express.json());
 app.use("/api/auth", userRoutes);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
 });
