@@ -63,7 +63,7 @@ exports.getMe = catchAsync(async (req, res) => {
 });
 
 exports.refreshToken = catchAsync(async (req, res) => {
-  const { refreshToken } = req.body;
+  const { refreshToken } = req.cookies;
   if (!refreshToken)
     return res.status(401).json({ message: "No refresh token provided" });
 
