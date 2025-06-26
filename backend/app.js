@@ -4,7 +4,17 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const errorHandler = require("./middlewares/errorHandler");
 const userRoutes = require("./routes/userRoutes");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", userRoutes);
 
