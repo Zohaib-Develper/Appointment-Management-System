@@ -10,7 +10,7 @@ const DoctorIndex = () => {
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const { showFLash } = useFlash();
+  const { showFlash } = useFlash();
   const { authUser } = useAuth();
 
   const navigate = useNavigate();
@@ -42,10 +42,10 @@ const DoctorIndex = () => {
   const handleDeleteDoctor = async (doctorId) => {
     try {
       const res = await axios.delete(`/doctors/${doctorId}`);
-      showFLash("Doctor deleted successfully", "success");
+      showFlash("Doctor deleted successfully", "success");
     } catch (error) {
       console.error("Error fetching doctor:", error);
-      showFLash(
+      showFlash(
         err.response?.data?.message || "Error: unable to delete doctor",
         "error"
       );
