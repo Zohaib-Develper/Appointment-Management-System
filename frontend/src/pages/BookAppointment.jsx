@@ -14,6 +14,7 @@ const BookAppointment = () => {
   const [time, setTime] = useState("");
   const [availableTimes, setAvailableTimes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [todayStr, setTodayStr] = useState("");
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -28,6 +29,9 @@ const BookAppointment = () => {
       }
     };
     fetchDoctor();
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0];
+    setTodayStr(formattedToday);
   }, [doctorId]);
 
   const getDayOfWeek = (dateStr) => {
@@ -88,7 +92,7 @@ const BookAppointment = () => {
       });
 
       showFlash("Appointment booked successfully!", "success");
-      navigate("/appointments");
+      //navigate("/appointments");
     } catch (err) {
       console.error("Booking error", err);
       showFlash(
@@ -130,6 +134,7 @@ const BookAppointment = () => {
             className="form-control"
             value={date}
             onChange={handleDateChange}
+            min={todayStr}
             required
           />
         </div>
