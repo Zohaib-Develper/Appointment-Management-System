@@ -6,6 +6,7 @@ import DoctorIndex from "./pages/DoctorIndex";
 import DoctorShow from "./pages/DoctorShow";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import BookAppointment from "./pages/BookAppointment";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/user/dashboard" element={<div>Hello!</div>} />
           <Route path="/doctors" element={<DoctorIndex />} />
-          <Route path="/doctors/:id" element={<DoctorShow />} />
+          <Route path="/doctors/:doctorId" element={<DoctorShow />} />
+          <Route path="/doctors/:doctorId/book" element={<BookAppointment />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

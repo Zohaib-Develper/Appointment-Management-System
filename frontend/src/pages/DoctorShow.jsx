@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "../axios";
 import { Card, Spin } from "antd";
 
 const DoctorShow = () => {
-  const { id } = useParams();
+  const { doctorId } = useParams();
   const { authUser } = useAuth();
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
-        const { data } = await axios.get(`/doctors/${id}`);
+        const { data } = await axios.get(`/doctors/${doctorId}`);
         setDoctor(data.data);
       } catch (error) {
         console.error("Error fetching doctor:", error);
@@ -22,7 +23,7 @@ const DoctorShow = () => {
       }
     };
     fetchDoctor();
-  }, [id]);
+  }, [doctorId]);
 
   if (loading) return <Spin size="large" />;
 
@@ -52,7 +53,14 @@ const DoctorShow = () => {
         </ul>
 
         {authUser?.role === "user" && (
-          <button className="btn btn-primary">Book Appointment</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate(`book`);
+            }}
+          >
+            Book Appointment
+          </button>
         )}
         {!authUser && (
           <p className="text-muted">Login as a user to book an appointment</p>
