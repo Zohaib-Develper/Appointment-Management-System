@@ -108,7 +108,7 @@ const DoctorIndex = () => {
                   <button
                     className="btn btn-primary w-50 m-1"
                     onClick={() => {
-                      navigate(`book`);
+                      navigate(`${doctor._id}/book`);
                     }}
                   >
                     Book Appointment

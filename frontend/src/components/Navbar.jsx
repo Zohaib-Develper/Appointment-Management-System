@@ -2,9 +2,11 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "../axios";
+import { useFlash } from "../context/FlashContext";
 
 const Navbar = () => {
   const { authUser, logout } = useAuth();
+  const { showFlash } = useFlash();
   const navigate = useNavigate();
   const path = useLocation().pathname;
   if (path.includes("login") || path.includes("register")) return;
@@ -14,6 +16,7 @@ const Navbar = () => {
       await axios.post("/auth/logout");
       logout();
       navigate("login");
+      showFlash("LogedOut!", "success");
     } catch (err) {
       console.error("Logout failed", err);
     }

@@ -8,6 +8,7 @@ exports.bookAppointment = catchAsync(async (req, res) => {
 
   const appointmentDate = new Date(date);
   appointmentDate.setHours(0, 0, 0, 0);
+
   const doctor = await Doctor.findById(doctorId);
   if (!doctor) {
     return res.status(404).json({ message: "Doctor not found" });
@@ -31,9 +32,17 @@ exports.bookAppointment = catchAsync(async (req, res) => {
   const [toHour, toMin] = availableSlot.to.split(":").map(Number);
   const [bookHour, bookMin] = time.split(":").map(Number);
 
-  const bookingMinutes = bookHour * 60 + bookMin;
   const fromMinutes = fromHour * 60 + fromMin;
-  const toMinutes = toHour * 60 + toMin;
+  let toMinutes = toHour * 60 + toMin;
+  const bookingMinutes = bookHour * 60 + bookMin;
+
+  const isOvernight = fromMinutes > toMinutes;
+  if (isOvernight) {
+    toMinutes += 24 * 60;
+    if (bookingMinutes < fromMinutes) {
+      bookingMinutes += 24 * 60;
+    }
+  }
 
   if (bookingMinutes < fromMinutes || bookingMinutes >= toMinutes) {
     return res

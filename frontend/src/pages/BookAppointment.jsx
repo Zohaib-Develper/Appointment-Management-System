@@ -45,22 +45,24 @@ const BookAppointment = () => {
     const [fromHour, fromMin] = from.split(":").map(Number);
     const [toHour, toMin] = to.split(":").map(Number);
 
+    let fromTotalMins = fromHour * 60 + fromMin;
+    let toTotalMins = toHour * 60 + toMin;
+
+    if (toTotalMins <= fromTotalMins) {
+      toTotalMins += 24 * 60;
+    }
+
     const slots = [];
-    for (
-      let h = fromHour, m = fromMin;
-      h < toHour || (h === toHour && m < toMin);
-      m += 30
-    ) {
-      if (m >= 60) {
-        m = 0;
-        h++;
-      }
+    for (let mins = fromTotalMins; mins < toTotalMins; mins += 30) {
+      const h = Math.floor((mins % (24 * 60)) / 60);
+      const m = mins % 60;
       const formatted = `${String(h).padStart(2, "0")}:${String(m).padStart(
         2,
         "0"
       )}`;
       slots.push(formatted);
     }
+
     return slots;
   };
 
