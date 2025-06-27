@@ -28,7 +28,6 @@ exports.registerUser = catchAsync(async (req, res) => {
 
 exports.loginUser = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
   if (!user || !(await user.comparePassword(password))) {
     return res.status(401).json({ message: "Invalid email or password" });

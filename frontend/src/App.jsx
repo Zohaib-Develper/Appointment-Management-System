@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import "./assets/stylesheets/Flash.css";
@@ -18,10 +18,18 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Navigate to="/doctors" replace />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/doctors" element={<DoctorIndex />} />
-          <Route path="/doctors/:doctorId/book" element={<BookAppointment />} />
+          <Route
+            path="/doctors/:doctorId/book"
+            element={
+              <ProtectedRoute redirectTo="/login" role="user">
+                <BookAppointment />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/user/dashboard"
             element={
@@ -47,7 +55,14 @@ function App() {
             }
           />
 
-          <Route path="/admin/edit-doctor/:id" element={<EditDoctor />} />
+          <Route
+            path="/admin/edit-doctor/:id"
+            element={
+              <ProtectedRoute redirectTo="/login" role="admin">
+                <EditDoctor />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

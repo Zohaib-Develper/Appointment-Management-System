@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Card } from "antd";
 import axios from "../axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +8,11 @@ import { useAuth } from "../context/AuthContext";
 const Login = () => {
   const navigate = useNavigate();
   const { showFlash } = useFlash();
-  const { login } = useAuth();
+  const { login, authUser } = useAuth();
+
+  useEffect(() => {
+    if (authUser) navigate(`/${authUser.role}/dashboard`);
+  }, []);
 
   const onFinish = async (values) => {
     try {

@@ -13,7 +13,7 @@ const Navbar = () => {
     try {
       await axios.post("/auth/logout");
       logout();
-      navigate("/login");
+      navigate("login");
     } catch (err) {
       console.error("Logout failed", err);
     }
@@ -38,7 +38,9 @@ const Navbar = () => {
           {authUser?.role === "admin" && (
             <>
               <div className="d-flex gap-3 flex-wrap">
-                <div className="text-white fw-bold">Admin Dashboard</div>
+                <div className="text-white fw-bold d-flex align-items-center">
+                  Admin Dashboard
+                </div>
                 <Link
                   to="/admin/doctors/create"
                   className="btn btn-success fw-bold shadow"
@@ -61,7 +63,9 @@ const Navbar = () => {
           {authUser?.role === "user" && (
             <>
               <div className="d-flex gap-3 flex-wrap">
-                <div className="text-white fw-bold">User Dashboard</div>
+                <div className="text-white fw-bold d-flex align-items-center">
+                  User Dashboard
+                </div>
                 <Link
                   to="/user/dashboard"
                   className="btn btn-primary fw-semibold"
@@ -80,9 +84,9 @@ const Navbar = () => {
           {authUser ? (
             <>
               <li className="nav-item">
-                <span className="navbar-text me-3 text-white">
+                <div className=" me-3 text-white d-flex align-items-center fw-bold">
                   Hi, {authUser.name}
-                </span>
+                </div>
               </li>
               <li className="nav-item">
                 <button

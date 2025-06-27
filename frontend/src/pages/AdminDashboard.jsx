@@ -41,10 +41,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">
-        Admin Dashboard{authUser ? ` - ${authUser.name}` : ""}
-      </h2>
-
+      <h2 className="mb-3">Welcome, {authUser?.name || "Admin"}!</h2>
       {loading ? (
         <div className="text-center mt-5">
           <Spin size="large" />

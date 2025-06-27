@@ -19,6 +19,10 @@
   background-color: #f44336;
 }
 
+.flash-message.error {
+  background-color: #7b72e3;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

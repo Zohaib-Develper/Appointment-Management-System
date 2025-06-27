@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "../axios";
 import { useNavigate } from "react-router-dom";
+import { useFlash } from "../context/FlashContext";
 
 const daysOfWeek = [
   "Monday",
@@ -14,6 +15,7 @@ const daysOfWeek = [
 
 const CreateDoctor = () => {
   const navigate = useNavigate();
+  const { showFlash } = useFlash();
 
   const [form, setForm] = useState({
     name: "",
@@ -59,8 +61,14 @@ const CreateDoctor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (form.availability.length <= 0) {
+        showFlash("There must be atleast one availability entry", "error");
+        return;
+      }
+
       await axios.post("/doctors", form);
-      navigate("/admin/dashboard");
+      navigate("/doctors");
+      showFlash("Doctor Created Successfully", "success");
     } catch (err) {
       console.error("Error creating doctor:", err);
       alert("Failed to create doctor.");
@@ -136,14 +144,12 @@ const CreateDoctor = () => {
               value={from}
               onChange={(e) => setFrom(e.target.value)}
               className="form-control"
-              required
             />
             <input
               type="time"
               value={to}
               onChange={(e) => setTo(e.target.value)}
               className="form-control"
-              required
             />
             <button
               type="button"

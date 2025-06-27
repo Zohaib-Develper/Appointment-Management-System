@@ -12,7 +12,7 @@ router.use(authMiddleware);
 
 router.post("/", roleMiddleware("user"), bookAppointment);
 
-router.get("/", getAppointments);
+router.get("/", roleMiddleware("user", "admin"), getAppointments);
 
 router.patch("/:id/status", roleMiddleware("admin"), updateAppointmentStatus);
 
