@@ -45,12 +45,6 @@ const AdminDashboard = () => {
         Admin Dashboard{authUser ? ` - ${authUser.name}` : ""}
       </h2>
 
-      <div className="mb-4 d-flex gap-3 flex-wrap">
-        <Link to="/doctors" className="btn btn-primary">
-          View Doctors
-        </Link>
-      </div>
-
       {loading ? (
         <div className="text-center mt-5">
           <Spin size="large" />

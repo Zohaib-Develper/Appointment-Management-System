@@ -28,12 +28,6 @@ const UserDashboard = () => {
     <div className="container mt-4">
       <h2 className="mb-3">Welcome, {authUser?.name || "User"}!</h2>
 
-      <div className="mb-4">
-        <Link to="/doctors" className="btn btn-primary">
-          Browse Doctors
-        </Link>
-      </div>
-
       <h4>Your Appointments</h4>
 
       {loading ? (

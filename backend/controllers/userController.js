@@ -83,3 +83,10 @@ exports.refreshToken = catchAsync(async (req, res) => {
     res.status(403).json({ message: "Invalid or expired refresh token" });
   }
 });
+
+exports.logoutUser = catchAsync(async (req, res) => {
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+
+  res.status(200).json({ message: "Logged out successfully" });
+});
