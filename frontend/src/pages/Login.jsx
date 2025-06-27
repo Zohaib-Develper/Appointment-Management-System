@@ -3,14 +3,17 @@ import { Form, Input, Button, Card } from "antd";
 import axios from "../axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useFlash } from "../context/FlashContext";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const { showFlash } = useFlash();
+  const { login } = useAuth();
 
   const onFinish = async (values) => {
     try {
       const res = await axios.post("/auth/login", values);
+      login(res.data.user);
       showFlash("Logged in successfully", "success");
       navigate("/user/dashboard");
     } catch (err) {

@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import axios from "../axios";
 
 const Navbar = () => {
-  const { authUser, setAuthUser } = useAuth();
+  const { authUser, logout } = useAuth();
   const navigate = useNavigate();
   const path = useLocation().pathname;
   if (path.includes("login") || path.includes("register")) return;
@@ -12,7 +12,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await axios.post("/auth/logout");
-      setAuthUser(null);
+      logout();
       navigate("/login");
     } catch (err) {
       console.error("Logout failed", err);
