@@ -92,7 +92,7 @@ const BookAppointment = () => {
       });
 
       showFlash("Appointment booked successfully!", "success");
-      //navigate("/appointments");
+      navigate("/user/dashboard");
     } catch (err) {
       console.error("Booking error", err);
       showFlash(
