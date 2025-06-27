@@ -10,6 +10,7 @@ import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import CreateDoctor from "./pages/CreateDoctor";
 import Navbar from "./components/Navbar";
+import EditDoctor from "./pages/EditDoctor";
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/admin/edit-doctor/:id" element={<EditDoctor />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

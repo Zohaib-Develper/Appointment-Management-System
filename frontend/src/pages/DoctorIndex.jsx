@@ -125,7 +125,7 @@ const DoctorIndex = () => {
                     <button
                       className="btn btn-primary w-25 m-1"
                       onClick={() => {
-                        navigate(`book`);
+                        navigate(`/admin/edit-doctor/${doctor._id}`);
                       }}
                     >
                       Edit
