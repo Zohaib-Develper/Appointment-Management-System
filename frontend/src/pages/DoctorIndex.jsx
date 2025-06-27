@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import axios from "../axios";
 import { Spin } from "antd";
+import { useFlash } from "../context/FlashContext";
 
 const DoctorIndex = () => {
   const [doctors, setDoctors] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const { showFLash } = useFlash();
+  const { authUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -35,8 +39,19 @@ const DoctorIndex = () => {
     setFiltered(filteredDoctors);
   };
 
-  const handleCardClick = (id) => {
-    navigate(`/doctors/${id}`);
+  const handleDeleteDoctor = async (doctorId) => {
+    try {
+      const res = await axios.delete(`/doctors/${doctorId}`);
+      showFLash("Doctor deleted successfully", "success");
+    } catch (error) {
+      console.error("Error fetching doctor:", error);
+      showFLash(
+        err.response?.data?.message || "Error: unable to delete doctor",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,7 +80,6 @@ const DoctorIndex = () => {
             <div
               className="col-md-4 mb-4"
               key={doctor._id}
-              onClick={() => handleCardClick(doctor._id)}
               style={{ cursor: "pointer" }}
             >
               <div className="card shadow-sm h-100">
@@ -90,6 +104,39 @@ const DoctorIndex = () => {
                     </ul>
                   </div>
                 </div>
+                {authUser?.role === "user" && (
+                  <button
+                    className="btn btn-primary w-50 m-1"
+                    onClick={() => {
+                      navigate(`book`);
+                    }}
+                  >
+                    Book Appointment
+                  </button>
+                )}
+                {authUser?.role === "admin" && (
+                  <div className="d-flex">
+                    <button
+                      className="btn btn-danger w-25 m-1"
+                      onClick={() => handleDeleteDoctor(doctor._id)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="btn btn-primary w-25 m-1"
+                      onClick={() => {
+                        navigate(`book`);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+                {!authUser && (
+                  <p className="text-muted">
+                    Login as a user to book an appointment
+                  </p>
+                )}
               </div>
             </div>
           ))}
