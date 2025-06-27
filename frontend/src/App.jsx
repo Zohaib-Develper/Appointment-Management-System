@@ -8,7 +8,7 @@ import { AuthProvider } from "./context/AuthContext";
 import BookAppointment from "./pages/BookAppointment";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
-//import CreateDoctor from "./pages/CreateDoctor";
+import CreateDoctor from "./pages/CreateDoctor";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -37,14 +37,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route
+          <Route
             path="/admin/doctors/create"
             element={
               <ProtectedRoute redirectTo="/login" role="admin">
                 <CreateDoctor />
               </ProtectedRoute>
             }
-          /> */}
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
