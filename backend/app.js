@@ -30,7 +30,7 @@ app.listen(port, () => {
 mongoose
   .connect(
     process.env.DATABASE_URL ||
-      "mongoose.connect('mongodb://127.0.0.1:27017/appointment_system_db')"
+      "mongodb://127.0.0.1:27017/appointment_system_db"
   )
   .then(() => console.log("Database Connected!"))
   .catch((err) => console.log("Error Connecting DB: ", err.message));
