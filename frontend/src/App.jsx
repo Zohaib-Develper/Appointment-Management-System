@@ -8,6 +8,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import BookAppointment from "./pages/BookAppointment";
 import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/doctors/:doctorId" element={<DoctorShow />} />
           <Route path="/doctors/:doctorId/book" element={<BookAppointment />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

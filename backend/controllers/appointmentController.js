@@ -3,10 +3,8 @@ const Doctor = require("../models/Doctor");
 const catchAsync = require("../utils/catchAsync");
 
 exports.bookAppointment = catchAsync(async (req, res) => {
-  console.log("request reached");
   const { doctorId, date, time } = req.body;
   const userId = req.user._id;
-  console.log("Date: ", date, "TIME: ", time);
 
   const appointmentDate = new Date(date);
   appointmentDate.setHours(0, 0, 0, 0);
