@@ -43,8 +43,16 @@ const DoctorIndex = () => {
     try {
       const res = await axios.delete(`/doctors/${doctorId}`);
       showFlash("Doctor deleted successfully", "success");
-    } catch (error) {
-      console.error("Error fetching doctor:", error);
+
+      setDoctors((prevDoctors) =>
+        prevDoctors.filter((doctor) => doctor._id !== doctorId)
+      );
+
+      setFiltered((prevFiltered) =>
+        prevFiltered.filter((doctor) => doctor._id !== doctorId)
+      );
+    } catch (err) {
+      console.error("Error deleting doctor:", err);
       showFlash(
         err.response?.data?.message || "Error: unable to delete doctor",
         "error"

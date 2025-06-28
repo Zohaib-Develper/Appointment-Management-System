@@ -1,5 +1,7 @@
 # Appointment-Management-System
 
+▶ [Watch Demo Video](demo/demo.mp4?raw=true)
+
 A full-stack Doctor Appointment Booking System built using the **MERN** stack (MongoDB, Express.js, React.js, Node.js) that allows users to register, login, browse doctors, and book appointments. Admins can manage doctors and monitor appointment statuses.
 
 ---
@@ -117,13 +119,14 @@ Create a `.env` file in your backend using .env.example
       ├── components/
       ├── context/
       ├── utils/
-      └── App.js
+      └── App.jsx
 
 /backend
   ├── controllers/
   ├── models/
   ├── routes/
-  ├── middleware/
+  ├── middlewares/
+  ├── utils/
   └── app.js
 ```
 
